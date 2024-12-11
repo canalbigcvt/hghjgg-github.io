@@ -26,7 +26,6 @@
             color: white;
             padding: 10px 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
 
         header h1 {
@@ -35,66 +34,11 @@
             margin-bottom: 10px;
         }
 
-        header nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-header nav ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
-}
-
-header nav ul li {
-    position: relative;
-}
-
-header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-header nav ul li a:hover {
-    background-color: #ff9900;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.menu-toggle {
-    display: none;
-}
-
-@media (max-width: 600px) {
-    header nav {
-        display: none;
-        position: absolute;
-        top: 50px;
-        left: 0;
-        background-color: #333;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    header.nav.menu-open {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-}
-}
-
         header nav ul {
             list-style: none;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            justify-content: center;
+            gap: 15px;
         }
 
         header nav ul li {
@@ -113,20 +57,6 @@ header nav ul li a:hover {
             background-color: #ff9900;
             color: #fff;
             border-radius: 5px;
-        }
-
-        .menu-toggle {
-            display: none;
-            cursor: pointer;
-            color: white;
-            font-size: 1.5em;
-            position: absolute;
-            left: 20px;
-            top: 10px;
-        }
-
-        .menu-open nav {
-            display: flex;
         }
 
         .container {
@@ -168,23 +98,100 @@ header nav ul li a:hover {
             color: white;
         }
 
-        .load-more {
-            text-align: center;
-            margin: 20px 0;
+        .video-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
 
-        .load-more button {
+        .video-popup.active {
+            display: flex;
+        }
+
+        .video-popup-content {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            background: #000;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .custom-player {
+            position: relative;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .custom-player video {
+            width: 100%;
+            display: block;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .controls button {
+            background: #ff9900;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .controls button:hover {
+            background: #e68a00;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 5px;
+            background: #555;
+            border-radius: 2.5px;
+            margin: 0 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: #ff9900;
+            width: 0;
+        }
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             background: #ff9900;
             color: white;
-            padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            font-size: 1.2em;
             cursor: pointer;
-            font-size: 1em;
-        }
-
-        .load-more button:hover {
-            background: #e68a00;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         footer {
@@ -194,31 +201,9 @@ header nav ul li a:hover {
             padding: 20px 10px;
             font-size: 0.9em;
             border-top: 2px solid #ff9900;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        footer .social-icons, footer .footer-menus {
-            display: flex;
-            gap: 10px;
-        }
-
-        footer .social-icons a, footer .footer-menus a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-        }
-
-        footer .social-icons a:hover, footer .footer-menus a:hover {
-            color: #ff9900;
         }
 
         @media (max-width: 600px) {
-            .menu-toggle {
-                display: block;
-            }
-
             header nav ul {
                 flex-direction: column;
                 align-items: center;
@@ -227,89 +212,124 @@ header nav ul li a:hover {
             .gallery {
                 grid-template-columns: 1fr;
             }
+
+            .video-popup-content iframe {
+                height: 300px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Minha Galeria de Vídeos</h1>
-        <div class="menu-toggle">☰</div>
         <nav>
             <ul>
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#menu1">Menu 1</a></li>
-                <li><a href="#menu2">Menu 2</a></li>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
             </ul>
         </nav>
     </header>
 
     <div class="container">
-        <section id="inicio" class="gallery">
-            <div class="gallery-item">
-                <img src="thumbnail1.jpg" alt="Thumbnail do vídeo 1">
+        <section class="gallery">
+            <div class="gallery-item" data-video="video1.mp4">
+                <img src="thumb1.jpg" alt="Vídeo 1">
                 <h3>Vídeo 1</h3>
             </div>
-            <div class="gallery-item">
-                <img src="thumbnail2.jpg" alt="Thumbnail do vídeo 2">
+            <div class="gallery-item" data-video="video2.mp4">
+                <img src="thumb2.jpg" alt="Vídeo 2">
                 <h3>Vídeo 2</h3>
             </div>
-            <div class="gallery-item">
-                <img src="thumbnail3.jpg" alt="Thumbnail do vídeo 3">
+            <div class="gallery-item" data-video="video3.mp4">
+                <img src="thumb3.jpg" alt="Vídeo 3">
                 <h3>Vídeo 3</h3>
             </div>
+            <!-- Adicione mais vídeos conforme necessário -->
         </section>
+    </div>
 
-        <div class="load-more">
-            <button onclick="loadMoreVideos()">Ver mais</button>
+    <div class="video-popup" id="videoPopup">
+        <div class="video-popup-content">
+            <button class="close-popup" id="closePopup">&times;</button>
+            <div class="custom-player">
+                <video id="popupVideo" controls>
+                    <source src="" type="video/mp4">
+                    Seu navegador não suporta este formato de vídeo.
+                </video>
+                <div class="controls">
+                    <button id="playPause">▶</button>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <button id="muteToggle">🔊</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <div class="social-icons">
-            <a href="https://instagram.com" target="_blank">Instagram</a>
-            <a href="https://t.me" target="_blank">Telegram</a>
-        </div>
-        <div>&copy; 2024 Minha Galeria de Vídeos. Todos os direitos reservados.</div>
-        <div class="footer-menus">
-            <a href="#opcao1">Opção 1</a>
-            <a href="#opcao2">Opção 2</a>
-        </div>
+        <p>&copy; 2024 Minha Galeria de Vídeos. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        document.querySelector('.menu-toggle').addEventListener('click', () => {
-            document.querySelector('header').classList.toggle('menu-open');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const videoPopup = document.getElementById('videoPopup');
+        const closePopup = document.getElementById('closePopup');
+        const popupVideo = document.getElementById('popupVideo');
+        const playPauseBtn = document.getElementById('playPause');
+        const muteToggleBtn = document.getElementById('muteToggle');
+        const progressBar = document.getElementById('progressBar');
+        const progress = document.getElementById('progress');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const videoSrc = item.getAttribute('data-video');
+                popupVideo.querySelector('source').src = videoSrc;
+                popupVideo.load();
+                videoPopup.classList.add('active');
+            });
         });
 
-        const videos = [
-            { src: 'thumbnail4.jpg', title: 'Vídeo 4' },
-            { src: 'thumbnail5.jpg', title: 'Vídeo 5' },
-            { src: 'thumbnail6.jpg', title: 'Vídeo 6' }
-        ];
+        closePopup.addEventListener('click', () => {
+            videoPopup.classList.remove('active');
+            popupVideo.pause();
+        });
 
-        let currentIndex = 0;
-
-        function loadMoreVideos() {
-            const gallery = document.querySelector('.gallery');
-            let added = 0;
-
-            while (currentIndex < videos.length && added < 3) {
-                const video = videos[currentIndex];
-                const div = document.createElement('div');
-                div.classList.add('gallery-item');
-                div.innerHTML = `
-                    <img src="${video.src}" alt="Thumbnail do ${video.title}">
-                    <h3>${video.title}</h3>
-                `;
-                gallery.appendChild(div);
-                currentIndex++;
-                added++;
+        videoPopup.addEventListener('click', (e) => {
+            if (e.target === videoPopup) {
+                videoPopup.classList.remove('active');
+                popupVideo.pause();
             }
+        });
 
-            if (currentIndex >= videos.length) {
-                document.querySelector('.load-more button').disabled = true;
-                document.querySelector('.load-more button').innerText = 'Não há mais vídeos';
+        playPauseBtn.addEventListener('click', () => {
+            if (popupVideo.paused) {
+                popupVideo.play();
+                playPauseBtn.textContent = '⏸';
+            } else {
+                popupVideo.pause();
+                playPauseBtn.textContent = '▶';
             }
-        }
+        });
+
+        muteToggleBtn.addEventListener('click', () => {
+            popupVideo.muted = !popupVideo.muted;
+            muteToggleBtn.textContent = popupVideo.muted ? '🔇' : '🔊';
+        });
+
+        popupVideo.addEventListener('timeupdate', () => {
+            const percent = (popupVideo.currentTime / popupVideo.duration) * 100;
+            progress.style.width = percent + '%';
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left;
+            const width = rect.width;
+            const newTime = (offsetX / width) * popupVideo.duration;
+            popupVideo.currentTime = newTime;
+        });
     </script>
 </body>
+</html>
