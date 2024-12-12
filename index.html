@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -193,22 +194,47 @@
         }
 
         #video-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            overflow: hidden;
-            display: none;
-            z-index: 1000;
-        }
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden; /* Garante que o conteúdo não transborde */
+    display: none;
+    z-index: 1000;
+    width: 90%; /* Responsivo: ocupa 90% da largura da tela */
+    max-width: 800px; /* Tamanho máximo para telas maiores */
+    height: auto; /* Ajusta a altura automaticamente */
+}
 
-        #video-popup video {
-            width: 100%;
-            height: auto;
-        }
+#video-popup video {
+    width: 100%; /* Preenche toda a largura do popup */
+    height: auto; /* Mantém as proporções corretas */
+    max-height: 90vh; /* Limita a altura do vídeo à altura da janela */
+}
+
+
+        #video-popup {
+    width: 90%; /* O popup ocupará 90% da largura da tela */
+    max-width: 800px; /* Limite máximo de largura */
+    height: auto; /* Ajusta a altura automaticamente */
+    max-height: 90vh; /* Limite a altura a 90% da altura da janela */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+}
+
+
+        
 
         #video-popup .close {
             position: absolute;
